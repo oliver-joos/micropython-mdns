@@ -59,11 +59,18 @@ class Client:
             self.start()
         return callback_config
 
+    def add_membership(self, sock=None) -> None:
+        # FIXME: workaround to add multicast membership from user code
+        if sock is None:
+            # Called by user code
+            sock = self.socket
+        member_info = dotted_ip_to_bytes(MDNS_ADDR) + dotted_ip_to_bytes(self.local_addr)
+        sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, member_info)
+
     def _make_socket(self) -> socket.socket:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        member_info = dotted_ip_to_bytes(MDNS_ADDR) + dotted_ip_to_bytes(self.local_addr)
-        sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, member_info)
+        self.add_membership(sock)
         sock.setblocking(False)
         return sock
 
