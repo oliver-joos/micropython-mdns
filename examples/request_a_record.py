@@ -4,12 +4,12 @@ delegated to be resolved as getaddrinfo call of socket.socket, the local address
 utilizes mdns.
 """
 
-import network
 import uasyncio
+from network import WLAN
 
 from mdns_client import Client
 
-wlan = network.WLAN(network.STA_IF)
+wlan = WLAN(WLAN.IF_STA)
 wlan.active(True)
 wlan.connect("<SSID>", "<Password>")
 while not wlan.isconnected():
