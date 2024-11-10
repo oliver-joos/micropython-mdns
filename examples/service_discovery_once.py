@@ -3,13 +3,14 @@ This example shows a one time discovery of available google cast services in the
 This is probably the most efficient way to discover services, as it doesn't store any additional
 local state after the query is done and should be used if memory is an issue in your application.
 """
-import network
+
 import uasyncio
+from network import WLAN
 
 from mdns_client import Client
 from mdns_client.service_discovery.txt_discovery import TXTServiceDiscovery
 
-wlan = network.WLAN(network.STA_IF)
+wlan = WLAN(WLAN.IF_STA)
 wlan.active(True)
 wlan.connect("<SSID>", "<Password>")
 while not wlan.isconnected():

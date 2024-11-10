@@ -7,13 +7,13 @@ responder.generate_random_postfix().
 It allows for advanced MDNS discovery for your MicroPython driven project.
 """
 
-import network
 import uasyncio
+from network import WLAN
 
 from mdns_client import Client
 from mdns_client.responder import Responder
 
-wlan = network.WLAN(network.STA_IF)
+wlan = WLAN(WLAN.IF_STA)
 wlan.active(True)
 wlan.connect("<SSID>", "<Password>")
 while not wlan.isconnected():
