@@ -109,7 +109,7 @@ class Client:
                     "Rebooting the socket to free up cache buffer."
                 )
                 self._init_socket()
-                continue
+                raise   # Reraise to the code that started this Client
 
             if addr[0] == self.local_addr:
                 continue
