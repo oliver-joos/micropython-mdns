@@ -1,6 +1,7 @@
 from collections import namedtuple
 import gc
 import time
+import sys
 
 import uasyncio
 
@@ -75,7 +76,11 @@ class ServiceDiscovery:
 
     async def _change_loop(self) -> None:
         while self.started and not self.client.stopped:
-            await self._tick()
+            try:
+                await self._tick()
+            except Exception as e:
+                self.dprint("Unexpected {} in task loop".format(e.__class__.__name__))
+                sys.print_exception(e)
             await uasyncio.sleep(self.timeout)
 
     async def _tick(self) -> None:
