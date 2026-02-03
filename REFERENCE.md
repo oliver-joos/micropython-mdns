@@ -17,12 +17,12 @@ All functionality in this library is based on this client.
 
 ```python
 import uasyncio
-import network
+from network import WLAN
 
 from mdns_client import Client
 
 loop = uasyncio.get_event_loop()
-wlan = network.WLAN(network.STA_IF)
+wlan = WLAN(WLAN.IF_STA)
 client = Client(wlan.ifconfig()[0])
 
 print(loop.run_until_complete(client.getaddrinfo("the-other-device.local", 80)))
@@ -115,13 +115,13 @@ supported by the application running on this Microcontroller.
 
 ```python
 import uasyncio
-import network
+from network import WLAN
 
 from mdns_client import Client
 from mdns_client.responder import Responder, generate_random_postfix
 
 loop = uasyncio.get_event_loop()
-wlan = network.WLAN(network.STA_IF)
+wlan = WLAN(WLAN.IF_STA)
 local_ip = wlan.ifconfig()[0]
 client = Client(local_ip)
 postfix = generate_random_postfix()
@@ -183,13 +183,13 @@ The `ServiceDiscovery` class and the `TXTServiceDiscovery` class provide possibi
 
 ```python
 import uasyncio
-import network
+from network import WLAN
 
 from mdns_client import Client
 from mdns_client.service_discovery import ServiceDiscovery
 
 loop = uasyncio.get_event_loop()
-wlan = network.WLAN(network.STA_IF)
+wlan = WLAN(WLAN.IF_STA)
 local_ip = wlan.ifconfig()[0]
 client = Client(local_ip)
 discovery = ServiceDiscovery(client)

@@ -7,14 +7,14 @@ it requires more memory than the one time discovery. However, depending on your 
 case it might be better to use this instead of the one time query.
 """
 
-import network
 import uasyncio
+from network import WLAN
 
 from mdns_client import Client
 from mdns_client.service_discovery import ServiceResponse
 from mdns_client.service_discovery.txt_discovery import TXTServiceDiscovery
 
-wlan = network.WLAN(network.STA_IF)
+wlan = WLAN(WLAN.IF_STA)
 wlan.active(True)
 wlan.connect("<SSID>", "<Password>")
 while not wlan.isconnected():
