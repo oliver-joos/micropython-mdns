@@ -63,7 +63,7 @@ class Client:
     def add_membership(self, sock=None) -> None:
         if sock is None:
             sock = self.socket
-        member_info = dotted_ip_to_bytes(MDNS_ADDR) + dotted_ip_to_bytes(self.local_addr)
+        member_info = dotted_ip_to_bytes(MDNS_ADDR) + bytes(4)
         sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, member_info)
 
     def _make_socket(self) -> socket.socket:
