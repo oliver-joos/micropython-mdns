@@ -33,7 +33,7 @@ def check_name(n: str) -> "List[bytes]":
         n = n.split(".")
         if n[-1] == "":
             n = n[:-1]
-    n = [i.encode("UTF-8") if isinstance(i, str) else i for i in n]
+    n = [i.encode("utf-8") if isinstance(i, str) else i for i in n]
     return n
 
 
